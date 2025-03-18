@@ -5,9 +5,11 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
-@MappedSuperclass
+@Entity
 public class User {
 
     private static final String STRONG_PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-_=+\\[{\\]}\\\\|;:'\",<.>/?]).{8,24}$";
@@ -15,8 +17,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
+    @Column(nullable = false)
+    protected boolean isAdmin =false;
+
     protected String firstname;
     protected String lastname;
+
+    @NotBlank
+    protected String phone;
+
+    protected LocalDate creationDate;
 
     @Column(unique = true, nullable = false)
     @NotNull
@@ -30,8 +40,6 @@ public class User {
     @Column(nullable = false)
     protected String password;
 
-    @NotBlank
-    protected String phone;
 
 
 }
